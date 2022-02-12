@@ -9,7 +9,7 @@ import MovieList from "../../components/movielist";
 
 const Discover = () => {
     const [keyword, setKeyword] = useState("");
-    const [year, setYear] = useState(0);
+    const [year, setYear] = useState("");
     const [results, setResults] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
     const [genreOptions, setGenreOptions] = useState([]);
@@ -46,8 +46,8 @@ const Discover = () => {
     // Write a function to trigger the API request and load the search results based on the keyword and year given as parameters
     //Second arg of debounce can be used to change delay time in ms
     const debouncedSearch = useCallback(
-        debounce((keyword) => {
-            searchMovies(keyword)
+        debounce((keyword, year) => {
+            searchMovies(keyword, year)
                 .then(movies => {
                     setTotalCount(movies.total_results);
                     setResults(movies.results);
@@ -62,7 +62,7 @@ const Discover = () => {
         } else if (keyword === "") {
             setTimeout(setPopularMovies, 550);
         } else {
-            debouncedSearch(keyword);
+            debouncedSearch(keyword, year);
         }
     }, [keyword, year, debouncedSearch])
 
@@ -76,6 +76,7 @@ const Discover = () => {
             <MovieResults>
                 {totalCount > 0 && <TotalCounter>{totalCount} movies</TotalCounter>}
                 <MovieList
+                    firstRender={firstRender}
                     movies={results || []}
                     genreOptions={genreOptions || []}
                 />

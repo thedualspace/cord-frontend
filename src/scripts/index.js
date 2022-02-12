@@ -8,37 +8,13 @@ export const fetchAllGenres = () => {
     return fetch(genresUrl).then(res => res.json())
 }
 
-export const searchMovies = (keyword) => {
-    // if (typeof year === "number" && year >= 0) {
 
-    // }
+export const searchMovies = (keyword, year) => {
+    // Planned to do validation checks on year to make sure it was a number, a valid year etc
+    // But the API handles this gracefully for us. Non-numerical entries do not return an errored response.
     const encodedQuery = encodeURI(keyword);
-    const searchUrl = `https://api.themoviedb.org/${process.env.REACT_APP_API_VERSION}/search/movie?query=${encodedQuery}&api_key=${process.env.REACT_APP_API_KEY}`;
+    const searchUrl =
+        `https://api.themoviedb.org/${process.env.REACT_APP_API_VERSION}/search/movie?query=${encodedQuery}&api_key=${process.env.REACT_APP_API_KEY}&year=${year}`
 
     return fetch(searchUrl).then(res => res.json());
-}
-
-// export const debounce = (callback, delay = 500) => {
-//     let timeoutId;
-//     return (...args) => {
-//         clearTimeout(timeoutId)
-//         timeoutId = setTimeout(() => {
-//             timeoutId = null
-//             callback(...args)
-//         }, delay)
-//     }
-// }
-export function debounce(callback, time = 1000) {
-	var timeout;
-	return function() {
-		var context = this;
-		var args = arguments;
-		if (timeout) {
-			clearTimeout(timeout);
-		}
-		timeout = setTimeout(function() {
-			timeout = null;
-			callback.apply(context, args);
-		}, time);
-	}
 }

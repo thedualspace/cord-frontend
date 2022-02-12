@@ -4,6 +4,9 @@ import styled from 'styled-components';
 //Components
 import Pill from "../pill";
 
+//Assets
+import defaultPoster from "../../images/default-poster.png"
+
 const MovieItem = ({ poster, heading, rating, overview, release, genreIds, allGenres }) => {
     //Convert ids returned by TMDB into human readable genres
     let genres = [];
@@ -17,7 +20,11 @@ const MovieItem = ({ poster, heading, rating, overview, release, genreIds, allGe
         // Complete the MovieItem component
         <MovieItemWrapper>
             <LeftCont>
-                <img src={`https://image.tmdb.org/t/p/original/${poster}`} alt="Movie poster" />
+                {poster ?
+                    <img src={`https://image.tmdb.org/t/p/original/${poster}`} alt="Movie poster" />
+                    :
+                    <img src={defaultPoster} alt="Movie poster" />
+                }
             </LeftCont>
             <RightCont>
                 <TopCont>
@@ -125,6 +132,12 @@ const Overview = styled.p`
     margin-bottom: 0;
     margin-top: 10px;
 
+    @media only screen and (max-width: ${p => p.theme.mobileSize}px) {
+        font-size: 13px;
+        line-height: 14px;
+        max-height: 70px;
+        overflow: hidden;
+    }
     /*Could not get the fade out overflow to work using this method, or any other*/
     /* @media only screen and (max-width: ${p => p.theme.mobileSize}px) {
         :after {
