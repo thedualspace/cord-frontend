@@ -15,4 +15,5 @@ export const theme = {
     primary,
     rootBackground,
     background,
+    mobileSize: 1024,
 }

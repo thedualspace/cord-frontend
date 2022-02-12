@@ -29,5 +29,6 @@ export default class MovieList extends React.Component {
 }
 
 const MoviesWrapper = styled.div`
+flex-direction: column;
   position: relative;
 `

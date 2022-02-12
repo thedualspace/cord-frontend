@@ -20,13 +20,16 @@ const ExpandableFilter = ({ title, children }) => {
     );
 }
 
-const ExpandableFilterWrapper = styled.div``;
+const ExpandableFilterWrapper = styled.div`
+    flex-direction: column;
+`;
 const Title = styled.div`
     font-size: 20px;
 
 `;
 
 const Content = styled.div`
+    flex-direction: column;
     transition: ${props => props.isOpen ? "max-height 1s cubic-bezier(0, 0, 0, 1)" : "max-height 1s ease-in-out"};
     max-height: ${props => props.isOpen ? "900px" : 0};
     overflow: ${props => props.isOpen ? "visible" : "hidden"};

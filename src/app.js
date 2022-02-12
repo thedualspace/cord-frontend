@@ -7,7 +7,7 @@ import SideNavBar from "./components/sidenavbar";
 import Discover from "./pages/discover";
 
 import './css/app.css';
-import { theme } from "./colors";
+import { theme } from "./theme";
 
 export default class App extends React.Component {
     render() {
@@ -30,7 +30,11 @@ export default class App extends React.Component {
 
 
 const ContentWrapper = styled.main`
-  padding-left: 260px;
+    padding-left: 260px;
+
+    @media only screen and (max-width: ${theme.mobileSize}px) {
+        padding-left: 0;
+    }
 `
 
 const PageContainer = styled.main`

@@ -1,19 +1,24 @@
 import React from "react";
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
-import * as colors from "../../colors";
 import SearchIcon from "../../images/search-icon-yellow.png";
 import CalendarIcon from "../../images/year-icon.png";
+import FiltersIcon from "../../images/filter-icon.png";
 
-const SearchBar = ({ icon, inputHandler, placeholder }) => {
+const SearchBar = ({ icon, inputHandler, toggleFiltersShown, placeholder, showFiltersIcon, shown }) => {
     return (
-        <SearchBarWrapper>
+        <SearchBarWrapper shown={shown}>
             <IconCont>
                 <SearchImage src={icon} />
             </IconCont>
             <InputCont>
-                <input type="search" onChange={e => inputHandler(e.target.value)} placeholder={placeholder} ></input>
+                <StyledInput type="search" onChange={e => inputHandler(e.target.value)} placeholder={placeholder} />
             </InputCont>
+            {showFiltersIcon &&
+                <IconCont onClick={() => toggleFiltersShown()} marginLeft>
+                    <StyledFiltersIcon src={FiltersIcon} />
+                </IconCont>
+            }
         </SearchBarWrapper>
     )
 }
@@ -21,13 +26,28 @@ const SearchBar = ({ icon, inputHandler, placeholder }) => {
 const SearchBarWrapper = styled.div`
     display: flex;
     position: relative;
-    border-bottom: ${p => p.theme.primary} 3px solid;
+
+    ${props => !props.shown && css`
+        display: none;
+    `};
 `
 const SearchImage = styled.img`
     width: 100%;
     position: relative;
     
 `
+
+const StyledFiltersIcon = styled.img`
+    display: none;
+    /* border-bottom: ${p => p.theme.primary} 3px solid; */
+    max-width: 24px;
+    max-height: 24px;
+    
+    @media only screen and (max-width: ${p => p.theme.mobileSize}px) {
+        display: flex;
+    }
+`
+
 const IconCont = styled.div`
     display: flex;
     align-items: center;
@@ -35,33 +55,48 @@ const IconCont = styled.div`
     height: 24px;
     width: 24px;
     padding: 8px;
+    border-bottom: ${p => p.theme.primary} 3px solid;
+    margin-left: ${p => p.marginLeft ? "12px" : "0"};
 `
 const InputCont = styled.div`
     display: flex;
     flex-direction: row;
     position: relative;
     flex: 1 1 100%;
+    border-bottom: ${p => p.theme.primary} 3px solid;
+`
 
-    input {
-        flex: 1 1 100%;
-        border: none;
+const StyledInput = styled.input`
+    flex: 1 1 100%;
+    border: none;
+    color: ${p => p.theme.primary};
+
+    ::placeholder {
+        opacity: 0.5;
         color: ${p => p.theme.primary};
-
-        ::placeholder {
-            opacity: 0.5;
-            color: ${p => p.theme.primary};
-        }
-        :focus {
-           outline: none; 
-        }
+    }
+    :focus {
+       outline: none; 
     }
 `
 
-const Search = ({ setKeyword, setYear }) => {
+const Search = ({ setKeyword, setYear, toggleFiltersShown, filtersShown }) => {
     return (
         <SearchWrapper>
-            <SearchBar icon={SearchIcon} inputHandler={setKeyword} placeholder="Search keyword" ></SearchBar>
-            <SearchBar icon={CalendarIcon} inputHandler={setYear} placeholder="Year of release" ></SearchBar>
+            <SearchBar
+                icon={SearchIcon}
+                inputHandler={setKeyword}
+                toggleFiltersShown={toggleFiltersShown}
+                placeholder="Keyword search"
+                showFiltersIcon
+                shown
+            />
+            <SearchBar
+                icon={CalendarIcon}
+                inputHandler={setYear}
+                placeholder="Year of release"
+                shown={filtersShown}
+            />
         </SearchWrapper>
     )
 
