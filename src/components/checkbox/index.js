@@ -26,7 +26,7 @@ const Checkbox = ({ onChange, collection, item }) => {
 const CheckboxCont = styled.div`
     position: relative;
     display: flex;
-    margin: 16px 0;
+    margin: 10px 0;
 
     input {
         height: 20px;

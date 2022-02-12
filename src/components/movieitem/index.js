@@ -32,8 +32,8 @@ const MovieItem = ({ poster, heading, rating, overview, release, genreIds, allGe
                     </GenresContainer>
                 </TopCont>
                 <BottomCont>
-                    <p>{overview}</p>
-                    <p className="date">{release}</p>
+                    <Overview>{overview}</Overview>
+                    <Date>{release}</Date>
                 </BottomCont>
             </RightCont>
         </MovieItemWrapper>
@@ -58,6 +58,12 @@ const LeftCont = styled.div`
         max-width: 140px;
         object-fit: contain;
     }
+
+    @media only screen and (max-width: ${p => p.theme.mobileSize}px) {
+        img {
+            max-width: 95px;
+        }
+    }
 `
 
 const RightCont = styled.div`
@@ -72,9 +78,11 @@ const TopCont = styled.div`
 
 const GenresContainer = styled.div`
     display: flex;
+    flex-wrap: wrap;
 
     p {
         font-weight: bold;
+        font-size: 10px;
         color: ${props => props.theme.primary};
         margin: 0;
         padding: 0 5px;
@@ -87,6 +95,7 @@ const GenresContainer = styled.div`
         border: none;
     }
 
+
 `
 
 const UpperCont = styled.div`
@@ -95,7 +104,13 @@ const UpperCont = styled.div`
     justify-content: space-between;
 
     h2 {
-        margin: 0 15px 15px 0;
+        margin: 0 15px 5px 0;
+    }
+
+    @media only screen and (max-width: ${p => p.theme.mobileSize}px) {
+        h2 {
+            font-size: 20px;
+        }
     }
 `
 
@@ -104,11 +119,30 @@ const BottomCont = styled.div`
     flex-direction: column;
     justify-content: space-between;
     flex: 1 1 100%;
-    p {
-         margin-bottom: 0;
-    }
-    .date {
-        color: ${props => props.theme.primary};
-    }
 `
+
+const Overview = styled.p`
+    margin-bottom: 0;
+    margin-top: 10px;
+
+    /*Could not get the fade out overflow to work using this method, or any other*/
+    /* @media only screen and (max-width: ${p => p.theme.mobileSize}px) {
+        :after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 30%;
+        height: 100%;
+        background:linear-gradient(to right, rgba(240, 244, 245, 0), rgba(240, 244, 245, 1));
+        pointer-events: none;
+        }
+    } */
+`
+
+const Date = styled.p`
+    color: ${props => props.theme.primary};
+    font-size: 10px;
+`
+
 export default MovieItem;

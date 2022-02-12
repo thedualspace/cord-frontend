@@ -52,7 +52,7 @@ const Discover = () => {
                     setTotalCount(movies.total_results);
                     setResults(movies.results);
                 })
-        }, 2000), []
+        }, 500), []
     );
 
     useEffect(() => {
@@ -60,7 +60,7 @@ const Discover = () => {
             firstRender.current = false;
             setPopularMovies();
         } else if (keyword === "") {
-            debounce(() => setPopularMovies());
+            setTimeout(setPopularMovies, 550);
         } else {
             debouncedSearch(keyword);
         }
@@ -70,7 +70,9 @@ const Discover = () => {
 
     return (
         <DiscoverWrapper>
-            <MobilePageTitle>Discover</MobilePageTitle> {/* MobilePageTitle should become visible on small screens & mobile devices*/}
+            <PageTitleWrapper>
+                <MobilePageTitle>Discover</MobilePageTitle> {/* MobilePageTitle should become visible on small screens & mobile devices*/}
+            </PageTitleWrapper>
             <MovieResults>
                 {totalCount > 0 && <TotalCounter>{totalCount} movies</TotalCounter>}
                 <MovieList
@@ -97,15 +99,17 @@ const Discover = () => {
 const DiscoverWrapper = styled.main`
     padding: 60px 45px;
     display: flex;
+    
 
     @media only screen and (max-width: ${p => p.theme.mobileSize}px) {
         flex-direction: column;
-        padding: 16px;
+        padding: 45px 16px 16px 16px;
     }
 `
 
 const TotalCounter = styled.div`
   font-weight: 400;
+  font-size: 14px;
   padding: 16px 0;
 `
 
@@ -128,12 +132,22 @@ const MovieFilters = styled.div`
     }
 `
 
-const MobilePageTitle = styled.header`
+const PageTitleWrapper = styled.div`
     display: none;
+    background: ${p => p.theme.rootBackground};
+    position: fixed;
+    padding: 16px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 8;
 
     @media only screen and (max-width: ${p => p.theme.mobileSize}px) {
         display: flex;
     }
+`;
 
+const MobilePageTitle = styled.h2`
+    margin: 0 0 0 52px;
 `
 export default Discover;

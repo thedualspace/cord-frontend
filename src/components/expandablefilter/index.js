@@ -11,7 +11,8 @@ const ExpandableFilter = ({ title, children }) => {
     return (
         <ExpandableFilterWrapper>
             <Title onClick={() => setIsOpen(!isOpen)}>
-                <span>{isOpen ? String.fromCharCode(0xFF0D) : String.fromCharCode(0xFF0B)} {title}</span>
+                <span>{isOpen ? String.fromCharCode(0xFF0D) : String.fromCharCode(0xFF0B)}</span>
+                <h4>{title}</h4>
             </Title>
             <Content isOpen={isOpen} aria-expanded={!isOpen}>
                 {children}
@@ -24,7 +25,16 @@ const ExpandableFilterWrapper = styled.div`
     flex-direction: column;
 `;
 const Title = styled.div`
-    font-size: 20px;
+    font-size: 18px;
+    align-items: center;
+
+    span {
+        font-size: 28px;
+        font-weight: 900;
+    }
+    h4 {
+        margin: 0;
+    }
 
 `;
 

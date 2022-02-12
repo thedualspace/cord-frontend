@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import styled, { css } from 'styled-components';
 import { NavLink as Link } from "react-router-dom";
 
+//Components
+import { Hamburger } from "./hamburger"; 
+
 import Arrow from "../../images/arrow-icon.png";
 import SearchWhite from "../../images/search-icon-white.png";
 
@@ -10,8 +13,9 @@ const SideNavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <SideNavBarCont className={isOpen ? 'visible' : ''}>
+        <SideNavBarCont isOpen={isOpen}>
             {/* Implement a hamburger icon slide in effect for small devices */}
+            <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
             <SideNavMainLink className="menu_nav_link main_nav_link" to="/" exact>
                 Wesley
                 <NavIcon src={Arrow}></NavIcon>
@@ -42,6 +46,7 @@ const SideNavBarCont = styled.div`
 
     @media only screen and (max-width: ${p => p.theme.mobileSize}px) {
         left: ${(props) => props.isOpen ? "0" : "-260px"};
+        top: 64px;
     }
 
 `

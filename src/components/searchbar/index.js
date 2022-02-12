@@ -15,7 +15,7 @@ const SearchBar = ({ icon, inputHandler, toggleFiltersShown, placeholder, showFi
                 <StyledInput type="search" onChange={e => inputHandler(e.target.value)} placeholder={placeholder} />
             </InputCont>
             {showFiltersIcon &&
-                <IconCont onClick={() => toggleFiltersShown()} marginLeft>
+                <IconCont hideOnDesktop onClick={() => toggleFiltersShown()} marginLeft>
                     <StyledFiltersIcon src={FiltersIcon} />
                 </IconCont>
             }
@@ -49,7 +49,8 @@ const StyledFiltersIcon = styled.img`
 `
 
 const IconCont = styled.div`
-    display: flex;
+    //Cant tell if this display method is dodgy af or kinda genius
+    display: ${p => p.hideOnDesktop ? "none" : "flex"};
     align-items: center;
     position: relative;
     height: 24px;
@@ -57,6 +58,10 @@ const IconCont = styled.div`
     padding: 8px;
     border-bottom: ${p => p.theme.primary} 3px solid;
     margin-left: ${p => p.marginLeft ? "12px" : "0"};
+
+    @media only screen and (max-width: ${p => p.theme.mobileSize}px) {
+        display: flex;
+    }
 `
 const InputCont = styled.div`
     display: flex;
@@ -87,7 +92,7 @@ const Search = ({ setKeyword, setYear, toggleFiltersShown, filtersShown }) => {
                 icon={SearchIcon}
                 inputHandler={setKeyword}
                 toggleFiltersShown={toggleFiltersShown}
-                placeholder="Keyword search"
+                placeholder="Search for movies"
                 showFiltersIcon
                 shown
             />

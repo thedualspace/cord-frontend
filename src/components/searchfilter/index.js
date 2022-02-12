@@ -4,9 +4,12 @@ import styled, { css } from 'styled-components';
 import ExpandableFilter from "../../components/expandablefilter";
 import Checkbox from "../checkbox";
 import Search from "../../components/searchbar";
+import { theme } from "../../theme";
 
 const SearchFilters = ({ genres, setGenres, ratings, setRatings, languages, setLanguages, setKeyword, setYear }) => {
-    const [filtersShown, setFiltersShown] = useState(false);
+    //Filters hidden by default on mobile screens
+    const width = window.innerWidth;
+    const [filtersShown, setFiltersShown] = useState( width > theme.mobileSize );
 
     const toggleFiltersShown = (state) => {
         if (state) {
@@ -69,6 +72,11 @@ const FiltersWrapper = styled.div`
     width: 100%;
     position: relative;
     flex-direction: column;
+    margin-top:29px;
+
+    @media only screen and (max-width: ${p => p.theme.mobileSize}px) {
+        margin-top: 0;
+    }
 `
 
 const SearchFiltersCont = styled.div`
