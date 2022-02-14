@@ -1,5 +1,5 @@
 export const fetchPopularMovies = () => {
-    const popularMoviesUrl = `https://api.themoviedb.org/${process.env.REACT_APP_API_VERSION}/discover/movie?sort_by=popularity.desc&api_key=${process.env.REACT_APP_API_KEY}`;
+    const popularMoviesUrl = `https://api.themoviedb.org/${process.env.REACT_APP_API_VERSION}/movie/popular?api_key=${process.env.REACT_APP_API_KEY}`;
     return fetch(popularMoviesUrl).then(res => res.json());
 }
 

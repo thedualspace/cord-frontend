@@ -55,6 +55,10 @@ const Discover = () => {
         }, 500), []
     );
 
+
+    // Note that TMDB requires a keyword for the search endpoint, 
+    // so we only perform searches when we have a keyword, regardless of 
+    // the value of year
     useEffect(() => {
         if (firstRender.current) {
             firstRender.current = false;
